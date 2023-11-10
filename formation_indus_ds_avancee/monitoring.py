@@ -20,5 +20,5 @@ def monitor_with_io(predictions_folder: str, db_con_str: str, monitoring_table_n
 
 
 def monitor(latest_predictions: pd.DataFrame) -> pd.DataFrame:
-    monitoring_df = latest_predictions.groupby("predictions_time").predictions.agg(["mean"])
+    monitoring_df = latest_predictions.groupby("predictions_time").predictions.agg(["mean"]).reset_index()
     return monitoring_df

@@ -19,7 +19,7 @@ def train_model(features: pd.DataFrame, model_registry_folder: str) -> None:
     y = features[target]
     with mlflow.start_run():
         mlflow.sklearn.autolog(log_models=True)
-        model = GradientBoostingRegressor(n_estimators=10, n_jobs=1)
+        model = GradientBoostingRegressor(n_estimators=10)
         model.fit(X, y)
     time_str = time.strftime('%Y%m%d-%H%M%S')
     joblib.dump(model, os.path.join(model_registry_folder, time_str + '.joblib'))
