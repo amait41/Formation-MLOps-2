@@ -22,8 +22,6 @@ def test_monitor_with_io_should_write_predictions_mean_to_db(mocked_read_csv):
 
     expected = pd.DataFrame({
         'predictions_time': [given_date],
-        'min': [12],
-        'max': [14],
         'mean': [13],
     })
 
