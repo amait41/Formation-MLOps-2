@@ -1,9 +1,11 @@
 from flask import Flask, jsonify
 import pandas as pd
+import joblib
 
+from exposition.model_as_a_service.config import MODEL_PATH
 from formation_indus_ds_avancee.train_and_predict import predict
 from formation_indus_ds_avancee.feature_engineering import prepare_features
-# from config import model_path
+
 
 app = Flask(__name__)
 
@@ -47,15 +49,8 @@ def predict_endpoint():
 
     features = prepare_features(received_data_df, training_mode=False)
 
-    try:
-        # predictions = predict(features, model_path=MODEL_PATH)
-        
-        return jsonify({
-            "prediction": str(features.columns)
-        })
-    except Exception as e:
-        return jsonify({
-            "error": e
-        })
-    
+    predictions = predict(features, model_path=MODEL_PATH)['predictions'].to_dict()
 
+    return jsonify({
+        "prediction": predictions,
+    })
